@@ -557,7 +557,7 @@ export default function Home() {
       <div className="gold-line mx-auto max-w-5xl" />
 
       {/* ==================== ECOSYSTEM ==================== */}
-      <section className="py-16 md:py-20 px-6 md:px-12">
+      <section className="py-16 md:py-24 px-6 md:px-12">
         <div className="max-w-5xl mx-auto">
           <motion.div
             initial="hidden"
@@ -568,19 +568,19 @@ export default function Home() {
           >
             <motion.p
               variants={fadeInUp}
-              className="text-silver/40 text-xs tracking-[0.3em] uppercase mb-8"
+              className="text-silver/50 text-xs tracking-[0.3em] uppercase mb-10"
             >
               Built on
             </motion.p>
             <motion.div
               variants={fadeInUp}
-              className="flex flex-wrap items-center justify-center gap-8 md:gap-14"
+              className="flex flex-wrap items-center justify-center gap-10 md:gap-16"
             >
               {["Next.js", "React", "Vercel", "Square", "Cloudflare"].map(
                 (name) => (
                   <span
                     key={name}
-                    className="text-silver/30 text-sm font-medium tracking-wide"
+                    className="text-silver/50 text-sm font-semibold tracking-widest uppercase transition-colors duration-300 hover:text-pearl/70"
                   >
                     {name}
                   </span>
