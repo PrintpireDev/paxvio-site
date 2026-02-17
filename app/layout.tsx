@@ -3,14 +3,15 @@ import { MobileMenu } from "@/components/MobileMenu";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Paxvio — Built to Trust",
+  metadataBase: new URL("https://paxvio.com"),
+  title: "Paxvio | Custom Product Infrastructure — Design Tools, AI & Commerce",
   description:
-    "Paxvio builds the technology that powers custom product businesses — from design tools to AI to production infrastructure.",
-  keywords: ["Paxvio", "custom products", "SaaS", "design tools", "print technology", "AI"],
+    "Design tools, production AI, and commerce infrastructure for custom product businesses. Built by operators, not outsiders.",
   authors: [{ name: "Paxvio Inc." }],
   openGraph: {
-    title: "Paxvio — Built to Trust",
-    description: "The technology behind custom products.",
+    title: "Paxvio | Custom Product Infrastructure",
+    description:
+      "Design tools, production AI, and commerce infrastructure for custom product businesses. Built by operators, not outsiders.",
     url: "https://paxvio.com",
     siteName: "Paxvio",
     type: "website",
@@ -18,8 +19,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Paxvio — Built to Trust",
-    description: "The technology behind custom products.",
+    title: "Paxvio | Custom Product Infrastructure",
+    description:
+      "Design tools, production AI, and commerce infrastructure for custom product businesses.",
   },
   robots: {
     index: true,
@@ -35,15 +37,35 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link rel="preconnect" href="https://api.fontshare.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://cdn.fontshare.com" crossOrigin="anonymous" />
         <link
           href="https://api.fontshare.com/v2/css?f=satoshi@400,500,600,700&display=swap"
           rel="stylesheet"
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Paxvio",
+              url: "https://paxvio.com",
+              description:
+                "Technology infrastructure for custom product businesses — design tools, production AI, and commerce systems.",
+              foundingDate: "2024",
+            }),
+          }}
+        />
       </head>
       <body className="antialiased">
+        <a href="#main-content" className="skip-nav">
+          Skip to main content
+        </a>
+
         {/* Navigation */}
-        <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 py-5 bg-deep-space/80 backdrop-blur-md border-b border-white/[0.04]">
-          <a href="/" className="flex items-center gap-3 group">
+        <nav aria-label="Main navigation" className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 py-5 bg-deep-space/80 backdrop-blur-md border-b border-white/[0.04]">
+          <a href="/" aria-label="Paxvio home" className="flex items-center gap-3 group">
             <svg
               width="28"
               height="32"
@@ -51,6 +73,7 @@ export default function RootLayout({
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               className="transition-transform duration-300 group-hover:scale-110"
+              aria-hidden="true"
             >
               <polygon
                 points="2,0 28,0 44,100 36,100"
@@ -68,13 +91,13 @@ export default function RootLayout({
           </a>
           <div className="hidden md:flex items-center gap-8">
             <a
-              href="#platform"
+              href="/#platform"
               className="text-silver text-sm tracking-wide hover:text-gold transition-colors duration-300"
             >
               Platform
             </a>
             <a
-              href="#approach"
+              href="/#approach"
               className="text-silver text-sm tracking-wide hover:text-gold transition-colors duration-300"
             >
               About
@@ -86,7 +109,7 @@ export default function RootLayout({
               Brand
             </a>
             <a
-              href="#contact"
+              href="/#contact"
               className="ml-4 px-5 py-2 text-sm font-medium text-navy bg-gold rounded-lg hover:bg-light-gold transition-colors duration-300"
             >
               Get in Touch
@@ -108,6 +131,7 @@ export default function RootLayout({
                     height="28"
                     viewBox="0 0 80 100"
                     fill="none"
+                    aria-hidden="true"
                   >
                     <polygon
                       points="2,0 28,0 44,100 36,100"
@@ -136,7 +160,7 @@ export default function RootLayout({
                   </h4>
                   <ul className="space-y-3">
                     <li>
-                      <a href="#platform" className="text-silver text-sm hover:text-gold transition-colors">
+                      <a href="/#platform" className="text-silver text-sm hover:text-gold transition-colors">
                         Platform
                       </a>
                     </li>
@@ -146,7 +170,7 @@ export default function RootLayout({
                       </a>
                     </li>
                     <li>
-                      <a href="#contact" className="text-silver text-sm hover:text-gold transition-colors">
+                      <a href="/#contact" className="text-silver text-sm hover:text-gold transition-colors">
                         Contact
                       </a>
                     </li>
@@ -158,22 +182,22 @@ export default function RootLayout({
                   </h4>
                   <ul className="space-y-3">
                     <li>
-                      <a href="#platform" className="text-silver text-sm hover:text-gold transition-colors">
+                      <a href="/#platform" className="text-silver text-sm hover:text-gold transition-colors">
                         Commerce
                       </a>
                     </li>
                     <li>
-                      <a href="#platform" className="text-silver text-sm hover:text-gold transition-colors">
+                      <a href="/#platform" className="text-silver text-sm hover:text-gold transition-colors">
                         Software
                       </a>
                     </li>
                     <li>
-                      <a href="#platform" className="text-silver text-sm hover:text-gold transition-colors">
+                      <a href="/#platform" className="text-silver text-sm hover:text-gold transition-colors">
                         AI
                       </a>
                     </li>
                     <li>
-                      <a href="#platform" className="text-silver text-sm hover:text-gold transition-colors">
+                      <a href="/#platform" className="text-silver text-sm hover:text-gold transition-colors">
                         Labs
                       </a>
                     </li>
@@ -182,17 +206,13 @@ export default function RootLayout({
               </div>
             </div>
             <div className="mt-16 pt-8 border-t border-white/[0.04] flex flex-col md:flex-row justify-between items-center gap-4">
-              <p className="text-silver/40 text-xs">
+              <p className="text-silver/60 text-xs">
                 &copy; {new Date().getFullYear()} Paxvio Inc. Delaware C-Corp.
                 All rights reserved.
               </p>
-              <div className="flex items-center gap-6">
-                <a href="/privacy" className="text-silver/30 text-xs hover:text-silver/50 transition-colors">Privacy</a>
-                <a href="/terms" className="text-silver/30 text-xs hover:text-silver/50 transition-colors">Terms</a>
-                <span className="text-gold/30 text-xs font-medium tracking-wider">
-                  Pax &middot; Vio
-                </span>
-              </div>
+              <span className="text-gold/40 text-xs font-medium tracking-wider">
+                Pax &middot; Vio
+              </span>
             </div>
           </div>
         </footer>

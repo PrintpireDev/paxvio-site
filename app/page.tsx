@@ -57,6 +57,7 @@ function VMark({
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
+      aria-hidden="true"
     >
       <defs>
         <linearGradient id="goldGrad" x1="0" y1="0" x2="0" y2="1">
@@ -142,7 +143,7 @@ const pillars = [
 /* ---- Main Page ---- */
 export default function Home() {
   return (
-    <main>
+    <main id="main-content">
       {/* ==================== HERO ==================== */}
       <section className="relative min-h-screen flex flex-col items-center justify-center px-6 overflow-hidden">
         {/* Background effects */}
@@ -257,8 +258,9 @@ export default function Home() {
           transition={{ delay: 2.5 }}
         >
           <ChevronDown
-            className="w-5 h-5 text-gold/30"
+            className="w-5 h-5 text-gold/50"
             style={{ animation: "scrollHint 2s ease-in-out infinite" }}
+            aria-hidden="true"
           />
         </motion.div>
       </section>
@@ -516,7 +518,7 @@ export default function Home() {
                       variants={fadeInUp}
                       className="flex items-start gap-5 w-full"
                     >
-                      <span className="text-gold/25 text-xs font-mono font-bold tracking-wider mt-0.5">
+                      <span className="text-gold/50 text-xs font-mono font-bold tracking-wider mt-0.5" aria-hidden="true">
                         {item.number}
                       </span>
                       <span className="text-pearl text-sm md:text-base font-medium leading-relaxed">
@@ -539,7 +541,7 @@ export default function Home() {
                       variants={fadeInUp}
                       className="flex items-start gap-5 w-full"
                     >
-                      <span className="text-gold/25 text-xs font-mono font-bold tracking-wider mt-0.5">
+                      <span className="text-gold/50 text-xs font-mono font-bold tracking-wider mt-0.5" aria-hidden="true">
                         {item.number}
                       </span>
                       <span className="text-pearl text-sm md:text-base font-medium leading-relaxed">
@@ -604,7 +606,7 @@ export default function Home() {
             className="text-center"
           >
             <motion.div variants={fadeInUp}>
-              <VMark size={36} className="mx-auto mb-10 opacity-15" />
+              <VMark size={36} className="mx-auto mb-10 opacity-20" />
             </motion.div>
 
             <motion.h2
@@ -675,7 +677,7 @@ export default function Home() {
 
             <motion.p
               variants={fadeInUp}
-              className="mt-16 text-gold/20 text-xs font-medium tracking-[0.2em] uppercase"
+              className="mt-16 text-gold/40 text-xs font-medium tracking-[0.2em] uppercase"
             >
               Pax: trust &middot; Vio: the path &middot; The trusted path
               forward

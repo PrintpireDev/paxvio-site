@@ -75,6 +75,7 @@ function VMark({
       viewBox="0 0 80 100"
       fill="none"
       className={className}
+      aria-hidden="true"
     >
       <polygon points="2,0 28,0 44,100 36,100" fill={fill} />
       <polygon points="52,0 78,0 44,100 36,100" fill={fill} opacity="0.35" />
@@ -151,7 +152,7 @@ function Section({
 /* ---- Main Brand Page ---- */
 export default function BrandPage() {
   return (
-    <main className="pt-20">
+    <main id="main-content" className="pt-20">
       {/* ---- Hero ---- */}
       <section className="py-20 md:py-28 px-6 md:px-12">
         <div className="max-w-6xl mx-auto">
@@ -518,148 +519,6 @@ export default function BrandPage() {
                     </p>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        </motion.div>
-      </Section>
-
-      <div className="gold-line mx-auto max-w-5xl" />
-
-      {/* ---- Apparel ---- */}
-      <Section label="Apparel" title="Uniform Program">
-        <motion.div variants={staggerContainer}>
-          {/* Polo Colors */}
-          <motion.div variants={fadeInUp}>
-            <h3 className="text-pearl text-sm font-semibold mb-5 tracking-wide">
-              Polo Colors
-            </h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {[
-                {
-                  name: "Midnight Navy",
-                  hex: "#0A1628",
-                  logo: "#C9A84C",
-                  primary: true,
-                },
-                {
-                  name: "Charcoal",
-                  hex: "#2C2C2C",
-                  logo: "#C9A84C",
-                  primary: false,
-                },
-                {
-                  name: "Pearl White",
-                  hex: "#E8E6E1",
-                  logo: "#0A1628",
-                  primary: false,
-                },
-                {
-                  name: "Gold Accent",
-                  hex: "#C9A84C",
-                  logo: "#0A1628",
-                  primary: false,
-                },
-              ].map((polo) => (
-                <Card key={polo.name} decorations>
-                  <CardContent className="pt-4">
-                    <div
-                      className="rounded-lg h-28 flex items-center justify-center mb-3 border border-white/[0.06]"
-                      style={{ backgroundColor: polo.hex }}
-                    >
-                      <VMark size={28} fill={polo.logo} />
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <p className="text-pearl text-xs font-medium">
-                        {polo.name}
-                      </p>
-                      {polo.primary && (
-                        <Badge variant="outline" className="text-[9px] text-gold border-gold/20">
-                          Primary
-                        </Badge>
-                      )}
-                    </div>
-                    <CopyHex hex={polo.hex} className="mt-1 text-silver" />
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Hat Program — simplified */}
-          <motion.div variants={fadeInUp} className="mt-10">
-            <h3 className="text-pearl text-sm font-semibold mb-5 tracking-wide">
-              Headwear
-            </h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {[
-                { name: "Structured Trucker", style: "Navy / Gold embroidery" },
-                { name: "Leather Patch", style: "Navy / Debossed mark" },
-                { name: "Snapback", style: "Navy / Gold embroidery" },
-                { name: "Dad Hat", style: "Navy / Tonal embroidery" },
-              ].map((hat) => (
-                <Card key={hat.name} decorations>
-                  <CardContent className="pt-4">
-                    <div className="rounded-lg h-20 flex items-center justify-center mb-3 bg-navy border border-gold/10">
-                      <VMark size={18} />
-                    </div>
-                    <p className="text-pearl text-xs font-medium">{hat.name}</p>
-                    <p className="text-silver text-[10px] mt-0.5">{hat.style}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Rules */}
-          <motion.div variants={fadeInUp} className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-5">
-            <Card decorations>
-              <CardHeader>
-                <CardTitle className="text-jade text-sm">Always</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2">
-                  {[
-                    "V mark on left chest (polos) or front center (hats)",
-                    "Gold embroidery on dark fabrics",
-                    "Navy embroidery on light fabrics",
-                    "Maintain clear space around mark",
-                  ].map((rule) => (
-                    <li
-                      key={rule}
-                      className="flex items-start gap-2 text-silver text-xs"
-                    >
-                      <Check className="w-3 h-3 text-jade mt-0.5 shrink-0" />
-                      {rule}
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card decorations>
-              <CardHeader>
-                <CardTitle className="text-crimson text-sm">Never</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2">
-                  {[
-                    "Stretch, rotate, or distort the V mark",
-                    "Place on busy or patterned backgrounds",
-                    "Use colors outside the brand palette",
-                    "Scale below 12mm in any dimension",
-                  ].map((rule) => (
-                    <li
-                      key={rule}
-                      className="flex items-start gap-2 text-silver text-xs"
-                    >
-                      <span className="text-crimson mt-0.5 shrink-0 text-[10px]">
-                        &times;
-                      </span>
-                      {rule}
-                    </li>
-                  ))}
-                </ul>
               </CardContent>
             </Card>
           </motion.div>

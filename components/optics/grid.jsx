@@ -42,6 +42,7 @@ export const GridContainer = ({
 				<style>{`@media(max-width:767px){.g-${gridId}{grid-template-columns:repeat(${mobileCols},minmax(0,1fr))!important}.g-${gridId}>div{grid-column:span ${mobileCols}/span ${mobileCols}!important;grid-template-columns:repeat(${mobileCols},minmax(0,1fr))!important}.g-${gridId}>div>div{grid-column:span 1/span ${mobileCols}!important}}`}</style>
 			)}
 			<div
+				data-slot="grid-container"
 				className={cn(`w-full grid`, responsive && `g-${gridId}`, className)}
 				style={{
 					gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
