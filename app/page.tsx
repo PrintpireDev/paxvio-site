@@ -510,7 +510,7 @@ export default function Home() {
                     span={1}
                     decorationTopLeft={i === 0}
                     decorationTopRight={i === 1}
-                    className="py-10 md:py-12 px-6 md:px-8"
+                    className="py-8 md:py-10 px-6 md:px-8 md:aspect-auto"
                   >
                     <motion.div
                       variants={fadeInUp}
@@ -533,7 +533,7 @@ export default function Home() {
                     span={1}
                     decorationBottomLeft={i === 0}
                     decorationBottomRight={i === 1}
-                    className="py-10 md:py-12 px-6 md:px-8"
+                    className="py-8 md:py-10 px-6 md:px-8 md:aspect-auto"
                   >
                     <motion.div
                       variants={fadeInUp}

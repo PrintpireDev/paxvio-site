@@ -90,8 +90,8 @@
   --accent: #1A3A5C;
   --accent-foreground: #E8E6E1;
   --destructive: #EF4444;
-  --border: #1C3050;
-  --input: #1C3050;
+  --border: #1F3A5E;
+  --input: #1F3A5E;
   --ring: #C9A84C;
   --chart-1: #C9A84C;
   --chart-2: #10B981;
@@ -204,20 +204,32 @@ body::before {
 
 /* ---- Optics Component Overrides for Paxvio Theme ---- */
 
-/* Gold-tinted grid borders */
+/* Gold-tinted grid borders — boosted for brand vibrancy */
 [data-slot="card"] {
-  background: linear-gradient(135deg, #0D1B2A, #091422) !important;
-  border-color: #1C3050 !important;
+  background: linear-gradient(135deg, #0F2035, #0A1628) !important;
+  border-color: #1F3A5E !important;
 }
 
-/* Make Optics card ring use our border */
+/* Make Optics card ring use gold accent — boosted opacity */
 [data-slot="card"].ring-foreground\/10 {
-  --tw-ring-color: rgba(201, 168, 76, 0.08);
+  --tw-ring-color: rgba(201, 168, 76, 0.15);
 }
 
-/* Card hover glow */
+/* Card hover glow — boosted */
 [data-slot="card"]:hover {
-  box-shadow: 0 0 40px rgba(201, 168, 76, 0.06), 0 20px 60px rgba(0, 0, 0, 0.3);
+  border-color: #2A4A6E !important;
+  box-shadow: 0 0 50px rgba(201, 168, 76, 0.1), 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+/* Optics grid borders — more visible */
+.border-l, .border-r, .border-t, .border-b,
+.last\:border-r:last-child, .last\:border-b:last-child {
+  border-color: #1F3A5E;
+}
+
+/* Optics crosshair decorations — brighter gold */
+.bg-muted-foreground {
+  background-color: #D4B45C !important;
 }
 
 /* ---- Brand Page Color Swatch ---- */
