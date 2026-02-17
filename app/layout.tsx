@@ -154,19 +154,28 @@ export default function RootLayout({
                 </div>
                 <div>
                   <h4 className="text-pearl text-xs font-semibold tracking-[0.15em] uppercase mb-4">
-                    Products
+                    Platform
                   </h4>
                   <ul className="space-y-3">
                     <li>
-                      <span className="text-silver/50 text-sm">
-                        Design Studio
-                      </span>
+                      <a href="#platform" className="text-silver text-sm hover:text-gold transition-colors">
+                        Commerce
+                      </a>
                     </li>
                     <li>
-                      <span className="text-silver/50 text-sm">Print API</span>
+                      <a href="#platform" className="text-silver text-sm hover:text-gold transition-colors">
+                        Software
+                      </a>
                     </li>
                     <li>
-                      <span className="text-silver/50 text-sm">Vision AI</span>
+                      <a href="#platform" className="text-silver text-sm hover:text-gold transition-colors">
+                        AI
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#platform" className="text-silver text-sm hover:text-gold transition-colors">
+                        Labs
+                      </a>
                     </li>
                   </ul>
                 </div>
@@ -177,9 +186,13 @@ export default function RootLayout({
                 &copy; {new Date().getFullYear()} Paxvio Inc. Delaware C-Corp.
                 All rights reserved.
               </p>
-              <p className="text-gold/40 text-xs font-medium tracking-wider">
-                Built to trust.
-              </p>
+              <div className="flex items-center gap-6">
+                <a href="/privacy" className="text-silver/30 text-xs hover:text-silver/50 transition-colors">Privacy</a>
+                <a href="/terms" className="text-silver/30 text-xs hover:text-silver/50 transition-colors">Terms</a>
+                <span className="text-gold/30 text-xs font-medium tracking-wider">
+                  Pax &middot; Vio
+                </span>
+              </div>
             </div>
           </div>
         </footer>
