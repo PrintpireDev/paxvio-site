@@ -1,26 +1,237 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ============================================
+   PAXVIO — Global Styles
+   Aesthetic: Luxury Geometric (Palantir x Stripe)
+   ============================================ */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-navy: #0A1628;
+  --color-gold: #C9A84C;
+  --color-deep-space: #060D18;
+  --color-off-white: #F8F7F4;
+  --color-pearl: #E8E6E1;
+  --color-graphite: #1A1A2E;
+  --color-silver: #8B8D94;
+  --color-slate: #6B7280;
+  --color-navy-80: #0E2240;
+  --color-navy-60: #1A3A5C;
+  --color-navy-40: #3D5A80;
+  --color-light-gold: #E8D5A0;
+  --color-dark-gold: #8B7332;
+  --color-warm-gray: #D4D0C8;
+  --color-jade: #10B981;
+  --color-crimson: #EF4444;
+  --color-amber: #F59E0B;
+  --color-sky: #3B82F6;
+
+  --font-sans: "Satoshi", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Satoshi loaded via <link> in layout.tsx head */
+
+/* ---- Base ---- */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-deep-space);
+  color: var(--color-pearl);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-navy);
+}
+
+/* ---- Grain Texture Overlay ---- */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* ---- Scroll-triggered animations ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+.reveal-delay-6 { transition-delay: 0.6s; }
+
+/* ---- Hero Animations ---- */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes drawBlade {
+  from {
+    clip-path: polygon(50% 100%, 50% 100%, 50% 100%, 50% 100%);
+  }
+  to {
+    clip-path: polygon(var(--blade-tl), var(--blade-tr), var(--blade-br), var(--blade-bl));
+  }
+}
+
+@keyframes shimmer {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(201, 168, 76, 0); }
+  50% { box-shadow: 0 0 40px rgba(201, 168, 76, 0.15); }
+}
+
+@keyframes expandWidth {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes scrollHint {
+  0%, 100% { opacity: 0.4; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(8px); }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+/* ---- Gold Accent Line ---- */
+.gold-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  animation: expandWidth 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ---- Custom Scrollbar ---- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-deep-space);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-navy-60);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold);
+}
+
+/* ---- Division Cards ---- */
+.division-card {
+  position: relative;
+  background: linear-gradient(135deg, rgba(14, 34, 64, 0.6), rgba(10, 22, 40, 0.8));
+  border: 1px solid rgba(201, 168, 76, 0.08);
+  border-radius: 12px;
+  padding: 2.5rem;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.division-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.division-card:hover {
+  border-color: rgba(201, 168, 76, 0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3),
+              0 0 40px rgba(201, 168, 76, 0.05);
+}
+
+.division-card:hover::before {
+  opacity: 1;
+}
+
+/* ---- Brand Page Color Swatch ---- */
+.color-swatch {
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.color-swatch:hover {
+  transform: scale(1.03);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.color-swatch::after {
+  content: "Click to copy";
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+  font-size: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  color: inherit;
+}
+
+.color-swatch:hover::after {
+  opacity: 0.5;
+}
+
+/* ---- Typography Specimen ---- */
+.type-specimen {
+  border-left: 2px solid var(--color-gold);
+  padding-left: 1.5rem;
+  margin-bottom: 2rem;
 }
