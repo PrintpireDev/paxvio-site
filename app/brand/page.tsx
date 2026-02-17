@@ -586,51 +586,29 @@ export default function BrandPage() {
             </div>
           </motion.div>
 
-          {/* Hat Styles */}
+          {/* Hat Program — simplified */}
           <motion.div variants={fadeInUp} className="mt-10">
             <h3 className="text-pearl text-sm font-semibold mb-5 tracking-wide">
-              Hat Program
+              Headwear
             </h3>
-            <GridContainer cols={4} mobileCols={2} gap={0} border>
-              <GridRow>
-                {[
-                  { name: "Structured Navy", type: "Richardson 112", mesh: true },
-                  { name: "Leather Patch", type: "Richardson 112PFP", mesh: true },
-                  { name: "Snapback", type: "Flexfit 110F", mesh: false },
-                  { name: "Dad Hat", type: "Yupoong 6245", mesh: false },
-                ].map((hat, i) => (
-                  <GridItem
-                    key={hat.name}
-                    span={1}
-                    decorationTopLeft={i === 0}
-                    decorationTopRight={i === 3}
-                    decorationBottomLeft={i === 0}
-                    decorationBottomRight={i === 3}
-                    className="py-6 px-4"
-                  >
-                    <div className="text-center">
-                      <div className="w-12 h-12 rounded-full bg-navy border border-gold/10 mx-auto flex items-center justify-center mb-3">
-                        <VMark size={14} />
-                      </div>
-                      <p className="text-pearl text-xs font-semibold">
-                        {hat.name}
-                      </p>
-                      <p className="text-silver text-[10px] mt-0.5">
-                        {hat.type}
-                      </p>
-                      {hat.mesh && (
-                        <Badge
-                          variant="outline"
-                          className="text-[9px] mt-2 text-silver border-silver/20"
-                        >
-                          Mesh Back
-                        </Badge>
-                      )}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {[
+                { name: "Structured Trucker", style: "Navy / Gold embroidery" },
+                { name: "Leather Patch", style: "Navy / Debossed mark" },
+                { name: "Snapback", style: "Navy / Gold embroidery" },
+                { name: "Dad Hat", style: "Navy / Tonal embroidery" },
+              ].map((hat) => (
+                <Card key={hat.name} decorations>
+                  <CardContent className="pt-4">
+                    <div className="rounded-lg h-20 flex items-center justify-center mb-3 bg-navy border border-gold/10">
+                      <VMark size={18} />
                     </div>
-                  </GridItem>
-                ))}
-              </GridRow>
-            </GridContainer>
+                    <p className="text-pearl text-xs font-medium">{hat.name}</p>
+                    <p className="text-silver text-[10px] mt-0.5">{hat.style}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </motion.div>
 
           {/* Rules */}
@@ -709,8 +687,8 @@ export default function BrandPage() {
                 </span>
               </div>
               <div>
-                <p className="text-pearl text-sm font-semibold">Berlin</p>
-                <p className="text-silver text-xs mt-0.5">Founder & CEO</p>
+                <p className="text-pearl text-sm font-semibold">First Last</p>
+                <p className="text-silver text-xs mt-0.5">Title, Department</p>
               </div>
             </div>
           </motion.div>

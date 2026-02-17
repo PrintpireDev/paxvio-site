@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import {
   Card,
@@ -9,7 +8,6 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/optics/card";
-import { Badge } from "@/components/optics/badge";
 import { GridContainer, GridRow, GridItem } from "@/components/optics/grid";
 import {
   ArrowRight,
@@ -18,28 +16,18 @@ import {
   Cpu,
   FlaskConical,
   ChevronDown,
+  Layers,
+  Wrench,
+  Users,
 } from "lucide-react";
 
-/* ---- Framer Motion Variants ---- */
+/* ---- Animation Variants ---- */
 const ease = [0.16, 1, 0.3, 1] as const;
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: i * 0.15,
-      duration: 0.7,
-      ease,
-    },
-  }),
-};
 
 const staggerContainer = {
   hidden: {},
   visible: {
-    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+    transition: { staggerChildren: 0.1, delayChildren: 0.15 },
   },
 };
 
@@ -52,8 +40,14 @@ const fadeInUp = {
   },
 };
 
-/* ---- V Mark SVG Component ---- */
-function VMark({ size = 120, className = "" }: { size?: number; className?: string }) {
+/* ---- V Mark ---- */
+function VMark({
+  size = 120,
+  className = "",
+}: {
+  size?: number;
+  className?: string;
+}) {
   const h = (size * 100) / 80;
   return (
     <svg
@@ -71,78 +65,78 @@ function VMark({ size = 120, className = "" }: { size?: number; className?: stri
         </linearGradient>
       </defs>
       <polygon points="2,0 28,0 44,100 36,100" fill="url(#goldGrad)" />
-      <polygon points="52,0 78,0 44,100 36,100" fill="url(#goldGrad)" opacity="0.35" />
+      <polygon
+        points="52,0 78,0 44,100 36,100"
+        fill="url(#goldGrad)"
+        opacity="0.35"
+      />
     </svg>
   );
 }
 
-/* ---- Section Observer Hook ---- */
-function useInView() {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.setAttribute("data-visible", "true");
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: "0px 0px -60px 0px" }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-  return ref;
-}
+/* ---- Data ---- */
+const problems = [
+  {
+    icon: Layers,
+    title: "Fragmented by design",
+    description:
+      "The average custom products merchant operates half a dozen disconnected tools. Design editors, production queues, shipping platforms — none built to work together.",
+  },
+  {
+    icon: Wrench,
+    title: "Manual by default",
+    description:
+      "File preparation. Color matching. Production routing. Quality control. The most critical steps in custom manufacturing are still done by hand.",
+  },
+  {
+    icon: Users,
+    title: "Built by outsiders",
+    description:
+      "The people building these tools have never operated a print shop, decorated an apparel line, or shipped a cut-contour sticker.",
+  },
+];
 
-/* ---- Divisions Data ---- */
 const divisions = [
   {
     icon: ShoppingBag,
     title: "Commerce",
     description:
       "Direct-to-consumer and B2B custom product businesses. Our proving ground — where every tool gets battle-tested before it becomes a product.",
-    products: ["Printpire", "The 8th Corner"],
-    status: "Revenue-generating",
-    statusColor: "bg-jade/15 text-jade border-jade/20",
+    capabilities: ["Storefronts", "Order management", "Fulfillment", "Shipping"],
   },
   {
     icon: Code2,
     title: "Software",
     description:
-      "Embeddable design tools, APIs, and merchant platforms. The infrastructure layer that powers custom product businesses at any scale.",
-    products: ["Design Studio", "Print API", "Merchant Tools"],
-    status: "In development",
-    statusColor: "bg-sky/15 text-sky border-sky/20",
+      "Embeddable design tools and APIs for any custom product workflow. The infrastructure layer that powers businesses at any scale.",
+    capabilities: ["Design Studio", "Print API", "Merchant Tools", "White-label"],
   },
   {
     icon: Cpu,
     title: "AI",
     description:
-      "Computer vision, intelligent assistants, and production automation. Machine learning applied to real manufacturing problems.",
-    products: ["Vision", "Piper", "Production AI"],
-    status: "Vision live",
-    statusColor: "bg-amber/15 text-amber border-amber/20",
+      "Computer vision and production automation. Machine learning applied to real manufacturing problems, not academic exercises.",
+    capabilities: [
+      "File preparation",
+      "Quality control",
+      "Smart routing",
+      "Image enhancement",
+    ],
   },
   {
     icon: FlaskConical,
     title: "Labs",
     description:
-      "R&D and experimental projects. Where we explore what's next — from new manufacturing methods to emerging technologies.",
-    products: ["Experimental"],
-    status: "Future",
-    statusColor: "bg-silver/15 text-silver border-silver/20",
+      "Research into next-generation manufacturing and design technology. Where we explore what comes after what exists.",
+    capabilities: ["New substrates", "Process R&D", "Emerging tech"],
   },
 ];
 
-const stats = [
-  { number: "4", label: "Divisions" },
-  { number: "6+", label: "Products" },
-  { number: "2", label: "Live Businesses" },
-  { number: "$0", label: "VC Raised" },
+const pillars = [
+  { number: "01", text: "Design tools that deploy everywhere" },
+  { number: "02", text: "AI that understands production" },
+  { number: "03", text: "APIs that connect any workflow" },
+  { number: "04", text: "Infrastructure that scales" },
 ];
 
 /* ---- Main Page ---- */
@@ -151,97 +145,107 @@ export default function Home() {
     <main>
       {/* ==================== HERO ==================== */}
       <section className="relative min-h-screen flex flex-col items-center justify-center px-6 overflow-hidden">
-        {/* Radial gradient */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(ellipse 60% 50% at 50% 40%, rgba(201, 168, 76, 0.06) 0%, transparent 70%)",
-          }}
-        />
-
-        {/* Grid pattern */}
-        <div className="absolute inset-0 pointer-events-none opacity-[0.025]">
+        {/* Background effects */}
+        <div className="absolute inset-0 pointer-events-none">
+          {/* Gold orb */}
           <div
-            className="w-full h-full"
+            className="absolute w-[800px] h-[800px] -top-[200px] left-[10%] rounded-full opacity-[0.07]"
+            style={{
+              background:
+                "radial-gradient(circle, #C9A84C 0%, transparent 70%)",
+              filter: "blur(80px)",
+              animation: "float 20s ease-in-out infinite",
+            }}
+          />
+          {/* Navy orb */}
+          <div
+            className="absolute w-[600px] h-[600px] top-[40%] right-[5%] rounded-full opacity-[0.05]"
+            style={{
+              background:
+                "radial-gradient(circle, #1A3A5C 0%, transparent 70%)",
+              filter: "blur(60px)",
+              animation: "float 25s ease-in-out infinite 5s",
+            }}
+          />
+          {/* Grid pattern */}
+          <div
+            className="absolute inset-0 opacity-[0.02]"
             style={{
               backgroundImage:
-                "linear-gradient(rgba(201, 168, 76, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(201, 168, 76, 0.4) 1px, transparent 1px)",
-              backgroundSize: "80px 80px",
+                "linear-gradient(rgba(201,168,76,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.5) 1px, transparent 1px)",
+              backgroundSize: "60px 60px",
             }}
           />
         </div>
 
-        {/* V Mark */}
+        {/* V Mark with glow */}
         <motion.div
+          className="relative"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
         >
+          <div className="absolute inset-0 blur-[60px] opacity-25 scale-150">
+            <VMark size={140} />
+          </div>
           <VMark
-            size={100}
-            className="drop-shadow-[0_0_80px_rgba(201,168,76,0.25)]"
+            size={140}
+            className="relative z-10 drop-shadow-[0_0_80px_rgba(201,168,76,0.2)]"
           />
         </motion.div>
 
         {/* Wordmark */}
         <motion.h1
-          className="mt-8 text-4xl md:text-5xl font-medium tracking-[0.14em] text-pearl"
+          className="mt-10 text-5xl md:text-6xl font-medium tracking-[0.14em] text-pearl"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ delay: 0.4, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           paxvio
         </motion.h1>
 
-        {/* Tagline */}
-        <motion.p
-          className="mt-4 text-gold text-sm md:text-base font-semibold tracking-[0.25em] uppercase"
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        >
-          Built to trust
-        </motion.p>
-
         {/* Gold line */}
         <motion.div
-          className="mt-6 h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent"
+          className="mt-8 h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent"
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
-          transition={{ delay: 0.9, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ delay: 0.8, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
         />
 
-        {/* Subtitle */}
+        {/* Category statement */}
         <motion.p
-          className="mt-6 text-silver text-base md:text-lg max-w-lg text-center leading-relaxed"
+          className="mt-8 text-xl md:text-2xl lg:text-3xl text-pearl/90 font-medium text-center max-w-2xl tracking-tight leading-snug"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          The technology behind custom products. Design tools, AI, and
-          infrastructure — built by people who run the businesses it serves.
+          The infrastructure for custom products.
         </motion.p>
 
-        {/* CTAs */}
-        <motion.div
-          className="mt-10 flex gap-4"
+        {/* Supporting text */}
+        <motion.p
+          className="mt-5 text-silver text-base md:text-lg max-w-xl text-center leading-relaxed"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.3, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ delay: 1.2, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        >
+          Design tools, production AI, and commerce systems — built by the
+          people who run the businesses they serve.
+        </motion.p>
+
+        {/* CTA */}
+        <motion.div
+          className="mt-12"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.5, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           <a
-            href="#divisions"
-            className="group px-8 py-3 text-sm font-semibold text-deep-space bg-gradient-to-b from-light-gold to-gold rounded-lg transition-all duration-300 hover:shadow-[0_0_30px_rgba(201,168,76,0.35)] hover:scale-[1.02] active:scale-[0.98] inline-flex items-center gap-2"
+            href="#platform"
+            className="group px-10 py-4 text-sm font-semibold text-deep-space bg-gradient-to-b from-light-gold to-gold rounded-lg transition-all duration-300 hover:shadow-[0_0_40px_rgba(201,168,76,0.3)] hover:scale-[1.02] active:scale-[0.98] inline-flex items-center gap-2.5"
           >
-            Explore
+            Explore the Platform
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-          </a>
-          <a
-            href="#contact"
-            className="px-8 py-3 text-sm font-medium text-gold border border-gold/25 rounded-lg hover:border-gold/50 hover:bg-gold/5 transition-all duration-300"
-          >
-            Get in Touch
           </a>
         </motion.div>
 
@@ -250,21 +254,20 @@ export default function Home() {
           className="absolute bottom-10"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 2 }}
+          transition={{ delay: 2.5 }}
         >
           <ChevronDown
-            className="w-5 h-5 text-gold/40"
+            className="w-5 h-5 text-gold/30"
             style={{ animation: "scrollHint 2s ease-in-out infinite" }}
           />
         </motion.div>
       </section>
 
-      {/* Gold divider */}
       <div className="gold-line mx-auto max-w-5xl" />
 
-      {/* ==================== ABOUT ==================== */}
-      <section id="about" className="py-28 md:py-36 px-6 md:px-12">
-        <div className="max-w-5xl mx-auto">
+      {/* ==================== THE PROBLEM ==================== */}
+      <section className="py-28 md:py-40 px-6 md:px-12">
+        <div className="max-w-6xl mx-auto">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -273,92 +276,69 @@ export default function Home() {
           >
             <motion.p
               variants={fadeInUp}
-              className="text-gold text-xs font-semibold tracking-[0.25em] uppercase mb-6"
+              className="text-gold text-xs font-semibold tracking-[0.3em] uppercase mb-6"
             >
-              The Story
+              The Problem
             </motion.p>
 
             <motion.h2
               variants={fadeInUp}
-              className="text-3xl md:text-4xl lg:text-5xl font-bold text-pearl leading-tight tracking-tight"
+              className="text-3xl md:text-4xl lg:text-5xl font-bold text-pearl leading-tight tracking-tight max-w-3xl"
             >
-              We started by running a custom print shop.
+              The custom products industry has outgrown its tools.
             </motion.h2>
 
             <motion.p
               variants={fadeInUp}
-              className="mt-8 text-lg md:text-xl text-silver leading-relaxed max-w-3xl"
+              className="mt-6 text-lg text-silver leading-relaxed max-w-2xl"
             >
-              We learned firsthand how hard it is to build the tools that power
-              custom products — from design editors to file preparation to
-              production routing to shipping.
-            </motion.p>
-
-            <motion.p
-              variants={fadeInUp}
-              className="mt-5 text-lg md:text-xl text-silver leading-relaxed max-w-3xl"
-            >
-              So we built those tools ourselves. Then we realized: every other
-              custom product business has the same problems. The same broken
-              workflows. The same tools built by people who never touched a
-              printing press.
-            </motion.p>
-
-            <motion.p
-              variants={fadeInUp}
-              className="mt-5 text-lg md:text-xl text-pearl leading-relaxed max-w-3xl font-medium"
-            >
-              That&apos;s why we&apos;re building Paxvio — technology created by
-              people who actually run the businesses it serves.
+              A multi-hundred-billion-dollar market still runs on disconnected
+              software, manual processes, and tools built by people who&apos;ve
+              never shipped a custom order.
             </motion.p>
           </motion.div>
 
-          {/* Stats Grid */}
+          {/* Problem cards */}
           <motion.div
-            className="mt-16"
+            className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}
             variants={staggerContainer}
           >
-            <GridContainer cols={4} mobileCols={2} gap={0} border>
-              <GridRow>
-                {stats.map((stat, i) => (
-                  <GridItem
-                    key={stat.label}
-                    span={1}
-                    decorationTopLeft={i === 0}
-                    decorationTopRight={i === 3}
-                    decorationBottomLeft={i === 0}
-                    decorationBottomRight={i === 3}
-                    className="py-8 md:py-10"
-                  >
-                    <motion.div
-                      variants={fadeInUp}
-                      className="text-center"
-                    >
-                      <p className="text-3xl md:text-4xl font-bold text-gold tracking-tight">
-                        {stat.number}
+            {problems.map((problem) => {
+              const Icon = problem.icon;
+              return (
+                <motion.div key={problem.title} variants={fadeInUp}>
+                  <Card decorations className="h-full">
+                    <CardHeader>
+                      <div className="p-2.5 rounded-lg bg-gold/5 border border-gold/10 w-fit">
+                        <Icon className="w-5 h-5 text-gold" />
+                      </div>
+                      <CardTitle className="text-pearl text-base font-bold mt-4">
+                        {problem.title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-silver text-sm leading-relaxed">
+                        {problem.description}
                       </p>
-                      <p className="mt-1 text-silver text-xs tracking-widest uppercase">
-                        {stat.label}
-                      </p>
-                    </motion.div>
-                  </GridItem>
-                ))}
-              </GridRow>
-            </GridContainer>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              );
+            })}
           </motion.div>
         </div>
       </section>
 
       <div className="gold-line mx-auto max-w-5xl" />
 
-      {/* ==================== DIVISIONS ==================== */}
-      <section id="divisions" className="py-28 md:py-36 px-6 md:px-12">
+      {/* ==================== THE PLATFORM ==================== */}
+      <section id="platform" className="py-28 md:py-40 px-6 md:px-12">
         <div className="max-w-6xl mx-auto">
           <motion.div
-            className="text-center mb-16"
+            className="text-center mb-20"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
@@ -366,22 +346,22 @@ export default function Home() {
           >
             <motion.p
               variants={fadeInUp}
-              className="text-gold text-xs font-semibold tracking-[0.25em] uppercase mb-4"
+              className="text-gold text-xs font-semibold tracking-[0.3em] uppercase mb-4"
             >
-              What We Build
+              The Platform
             </motion.p>
             <motion.h2
               variants={fadeInUp}
               className="text-3xl md:text-4xl lg:text-5xl font-bold text-pearl tracking-tight"
             >
-              Four divisions. One platform.
+              Four systems. One architecture.
             </motion.h2>
             <motion.p
               variants={fadeInUp}
-              className="mt-4 text-silver text-base max-w-xl mx-auto"
+              className="mt-5 text-silver text-base max-w-xl mx-auto leading-relaxed"
             >
-              Each division feeds the others — commerce informs software, software enables AI,
-              and labs pushes everything forward.
+              Each system feeds the others — commerce informs software, software
+              enables AI, and research pushes everything forward.
             </motion.p>
           </motion.div>
 
@@ -399,21 +379,13 @@ export default function Home() {
                 <motion.div key={div.title} variants={fadeInUp}>
                   <Card
                     decorations
-                    className="h-full transition-all duration-300 hover:-translate-y-1"
+                    className="h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(201,168,76,0.06)]"
                   >
                     <CardHeader className="pb-0">
-                      <div className="flex items-start justify-between w-full">
-                        <div className="p-2.5 rounded-lg bg-gold/5 border border-gold/10">
-                          <Icon className="w-5 h-5 text-gold" />
-                        </div>
-                        <Badge
-                          variant="outline"
-                          className={`text-[10px] ${div.statusColor}`}
-                        >
-                          {div.status}
-                        </Badge>
+                      <div className="p-2.5 rounded-lg bg-gold/5 border border-gold/10 w-fit">
+                        <Icon className="w-5 h-5 text-gold" />
                       </div>
-                      <CardTitle className="text-lg font-bold text-pearl mt-4">
+                      <CardTitle className="text-xl font-bold text-pearl mt-4">
                         {div.title}
                       </CardTitle>
                       <CardDescription className="text-silver text-sm leading-relaxed mt-1">
@@ -421,13 +393,13 @@ export default function Home() {
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <div className="flex flex-wrap gap-2 mt-2">
-                        {div.products.map((p) => (
+                      <div className="flex flex-wrap gap-2 mt-3">
+                        {div.capabilities.map((cap) => (
                           <span
-                            key={p}
-                            className="text-[11px] text-gold/70 bg-gold/5 border border-gold/10 rounded-md px-2.5 py-1"
+                            key={cap}
+                            className="text-[11px] text-gold/60 bg-gold/5 border border-gold/8 rounded-md px-2.5 py-1"
                           >
-                            {p}
+                            {cap}
                           </span>
                         ))}
                       </div>
@@ -442,8 +414,64 @@ export default function Home() {
 
       <div className="gold-line mx-auto max-w-5xl" />
 
-      {/* ==================== VISION ==================== */}
-      <section className="py-28 md:py-36 px-6 md:px-12">
+      {/* ==================== THE APPROACH ==================== */}
+      <section id="approach" className="py-28 md:py-40 px-6 md:px-12">
+        <div className="max-w-5xl mx-auto">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={staggerContainer}
+          >
+            <motion.p
+              variants={fadeInUp}
+              className="text-gold text-xs font-semibold tracking-[0.3em] uppercase mb-6"
+            >
+              The Approach
+            </motion.p>
+
+            <motion.h2
+              variants={fadeInUp}
+              className="text-3xl md:text-4xl lg:text-5xl font-bold text-pearl leading-tight tracking-tight"
+            >
+              We operate what we build.
+            </motion.h2>
+
+            <motion.p
+              variants={fadeInUp}
+              className="mt-8 text-lg md:text-xl text-silver leading-relaxed max-w-3xl"
+            >
+              Paxvio runs its own custom product businesses. They&apos;re the
+              proving ground for every tool we create. Real orders. Real
+              customers. Real deadlines.
+            </motion.p>
+
+            <motion.p
+              variants={fadeInUp}
+              className="mt-5 text-lg md:text-xl text-silver leading-relaxed max-w-3xl"
+            >
+              If a design editor frustrates our customers, we fix it before it
+              ships to yours. If a production workflow breaks under pressure, we
+              catch it before you do. If an AI model makes the wrong call, we
+              see it first — in our own P&amp;L.
+            </motion.p>
+
+            <motion.p
+              variants={fadeInUp}
+              className="mt-5 text-lg md:text-xl text-pearl leading-relaxed max-w-3xl font-medium"
+            >
+              This isn&apos;t a theory of how custom products should work.
+              It&apos;s the infrastructure we built because we needed it
+              ourselves.
+            </motion.p>
+          </motion.div>
+        </div>
+      </section>
+
+      <div className="gold-line mx-auto max-w-5xl" />
+
+      {/* ==================== INFRASTRUCTURE ==================== */}
+      <section className="py-28 md:py-40 px-6 md:px-12">
         <div className="max-w-5xl mx-auto">
           <motion.div
             initial="hidden"
@@ -454,27 +482,19 @@ export default function Home() {
           >
             <motion.p
               variants={fadeInUp}
-              className="text-gold text-xs font-semibold tracking-[0.25em] uppercase mb-6"
+              className="text-gold text-xs font-semibold tracking-[0.3em] uppercase mb-6"
             >
-              The Vision
+              Infrastructure
             </motion.p>
             <motion.h2
               variants={fadeInUp}
               className="text-3xl md:text-4xl lg:text-[3.25rem] font-bold text-pearl leading-tight tracking-tight"
             >
-              The Shopify of custom products.
+              Built for precision. Designed for scale.
             </motion.h2>
-            <motion.p
-              variants={fadeInUp}
-              className="mt-8 text-lg md:text-xl text-silver leading-relaxed max-w-2xl mx-auto"
-            >
-              From the design tool a customer uses, to the AI that preps their
-              file, to the infrastructure that gets it printed and shipped. One
-              platform. End to end.
-            </motion.p>
           </motion.div>
 
-          {/* Feature Grid */}
+          {/* Technical Pillars Grid */}
           <motion.div
             className="mt-16"
             initial="hidden"
@@ -484,22 +504,22 @@ export default function Home() {
           >
             <GridContainer cols={2} mobileCols={1} gap={0} border>
               <GridRow>
-                {[
-                  { text: "Design tools that run everywhere", icon: "01" },
-                  { text: "AI that understands production", icon: "02" },
-                ].map((item, i) => (
+                {pillars.slice(0, 2).map((item, i) => (
                   <GridItem
                     key={item.text}
                     span={1}
                     decorationTopLeft={i === 0}
                     decorationTopRight={i === 1}
-                    className="py-8 md:py-10 px-6"
+                    className="py-10 md:py-12 px-6 md:px-8"
                   >
-                    <motion.div variants={fadeInUp} className="flex items-center gap-4 w-full">
-                      <span className="text-gold/30 text-xs font-mono font-bold tracking-wider">
-                        {item.icon}
+                    <motion.div
+                      variants={fadeInUp}
+                      className="flex items-start gap-5 w-full"
+                    >
+                      <span className="text-gold/25 text-xs font-mono font-bold tracking-wider mt-0.5">
+                        {item.number}
                       </span>
-                      <span className="text-pearl text-sm font-medium">
+                      <span className="text-pearl text-sm md:text-base font-medium leading-relaxed">
                         {item.text}
                       </span>
                     </motion.div>
@@ -507,22 +527,22 @@ export default function Home() {
                 ))}
               </GridRow>
               <GridRow>
-                {[
-                  { text: "APIs that connect any workflow", icon: "03" },
-                  { text: "Infrastructure that scales", icon: "04" },
-                ].map((item, i) => (
+                {pillars.slice(2, 4).map((item, i) => (
                   <GridItem
                     key={item.text}
                     span={1}
                     decorationBottomLeft={i === 0}
                     decorationBottomRight={i === 1}
-                    className="py-8 md:py-10 px-6"
+                    className="py-10 md:py-12 px-6 md:px-8"
                   >
-                    <motion.div variants={fadeInUp} className="flex items-center gap-4 w-full">
-                      <span className="text-gold/30 text-xs font-mono font-bold tracking-wider">
-                        {item.icon}
+                    <motion.div
+                      variants={fadeInUp}
+                      className="flex items-start gap-5 w-full"
+                    >
+                      <span className="text-gold/25 text-xs font-mono font-bold tracking-wider mt-0.5">
+                        {item.number}
                       </span>
-                      <span className="text-pearl text-sm font-medium">
+                      <span className="text-pearl text-sm md:text-base font-medium leading-relaxed">
                         {item.text}
                       </span>
                     </motion.div>
@@ -536,49 +556,129 @@ export default function Home() {
 
       <div className="gold-line mx-auto max-w-5xl" />
 
-      {/* ==================== CONTACT ==================== */}
-      <section id="contact" className="py-28 md:py-36 px-6 md:px-12">
-        <div className="max-w-2xl mx-auto text-center">
+      {/* ==================== ECOSYSTEM ==================== */}
+      <section className="py-16 md:py-20 px-6 md:px-12">
+        <div className="max-w-5xl mx-auto">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="text-center"
+          >
+            <motion.p
+              variants={fadeInUp}
+              className="text-silver/40 text-xs tracking-[0.3em] uppercase mb-8"
+            >
+              Built on
+            </motion.p>
+            <motion.div
+              variants={fadeInUp}
+              className="flex flex-wrap items-center justify-center gap-8 md:gap-14"
+            >
+              {["Next.js", "React", "Vercel", "Square", "Cloudflare"].map(
+                (name) => (
+                  <span
+                    key={name}
+                    className="text-silver/30 text-sm font-medium tracking-wide"
+                  >
+                    {name}
+                  </span>
+                )
+              )}
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      <div className="gold-line mx-auto max-w-5xl" />
+
+      {/* ==================== CTA ==================== */}
+      <section id="contact" className="py-28 md:py-40 px-6 md:px-12">
+        <div className="max-w-4xl mx-auto">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
             variants={staggerContainer}
+            className="text-center"
           >
             <motion.div variants={fadeInUp}>
-              <VMark size={40} className="mx-auto mb-8 opacity-20" />
+              <VMark size={36} className="mx-auto mb-10 opacity-15" />
             </motion.div>
 
             <motion.h2
               variants={fadeInUp}
-              className="text-3xl md:text-4xl font-bold text-pearl tracking-tight"
+              className="text-3xl md:text-4xl lg:text-5xl font-bold text-pearl tracking-tight"
             >
-              Something big is being built.
+              Let&apos;s build together.
             </motion.h2>
 
             <motion.p
               variants={fadeInUp}
-              className="mt-6 text-silver text-lg leading-relaxed"
+              className="mt-6 text-silver text-lg leading-relaxed max-w-xl mx-auto"
             >
-              We&apos;re building in public. If you&apos;re a merchant, developer, or
-              investor interested in what we&apos;re doing — let&apos;s talk.
+              Whether you&apos;re a merchant, developer, or investor — we&apos;d
+              like to hear from you.
             </motion.p>
 
-            <motion.div variants={fadeInUp} className="mt-10">
+            {/* Segmented CTAs */}
+            <motion.div
+              variants={fadeInUp}
+              className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-4"
+            >
               <a
-                href="mailto:hello@paxvio.com"
-                className="group inline-flex items-center gap-2.5 px-8 py-4 text-sm font-semibold text-deep-space bg-gradient-to-b from-light-gold to-gold rounded-lg transition-all duration-300 hover:shadow-[0_0_40px_rgba(201,168,76,0.3)] hover:scale-[1.02] active:scale-[0.98]"
+                href="mailto:hello@paxvio.com?subject=Merchant%20Inquiry"
+                className="group p-6 rounded-xl border border-white/[0.06] bg-card hover:border-gold/20 hover:shadow-[0_0_20px_rgba(201,168,76,0.04)] transition-all duration-300 text-left hover:-translate-y-0.5"
               >
-                hello@paxvio.com
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                <p className="text-pearl text-sm font-semibold">
+                  For Merchants
+                </p>
+                <p className="text-silver text-xs mt-1.5 leading-relaxed">
+                  Transform your custom product business with integrated tools.
+                </p>
+                <span className="text-gold text-xs font-medium mt-4 inline-flex items-center gap-1 group-hover:gap-1.5 transition-all">
+                  Get in touch <ArrowRight className="w-3 h-3" />
+                </span>
+              </a>
+
+              <a
+                href="mailto:hello@paxvio.com?subject=Developer%20Inquiry"
+                className="group p-6 rounded-xl border border-white/[0.06] bg-card hover:border-gold/20 hover:shadow-[0_0_20px_rgba(201,168,76,0.04)] transition-all duration-300 text-left hover:-translate-y-0.5"
+              >
+                <p className="text-pearl text-sm font-semibold">
+                  For Developers
+                </p>
+                <p className="text-silver text-xs mt-1.5 leading-relaxed">
+                  Build on the platform. APIs, SDKs, and documentation.
+                </p>
+                <span className="text-gold text-xs font-medium mt-4 inline-flex items-center gap-1 group-hover:gap-1.5 transition-all">
+                  Coming soon <ArrowRight className="w-3 h-3" />
+                </span>
+              </a>
+
+              <a
+                href="mailto:hello@paxvio.com?subject=Partnership%20Inquiry"
+                className="group p-6 rounded-xl border border-white/[0.06] bg-card hover:border-gold/20 hover:shadow-[0_0_20px_rgba(201,168,76,0.04)] transition-all duration-300 text-left hover:-translate-y-0.5"
+              >
+                <p className="text-pearl text-sm font-semibold">
+                  For Partners
+                </p>
+                <p className="text-silver text-xs mt-1.5 leading-relaxed">
+                  Investment, integration, and collaboration opportunities.
+                </p>
+                <span className="text-gold text-xs font-medium mt-4 inline-flex items-center gap-1 group-hover:gap-1.5 transition-all">
+                  Reach out <ArrowRight className="w-3 h-3" />
+                </span>
               </a>
             </motion.div>
 
             <motion.p
               variants={fadeInUp}
-              className="mt-10 text-gold/25 text-xs font-medium tracking-[0.2em] uppercase"
+              className="mt-16 text-gold/20 text-xs font-medium tracking-[0.2em] uppercase"
             >
-              Pax: trust &middot; Vio: the path &middot; The trusted path forward
+              Pax: trust &middot; Vio: the path &middot; The trusted path
+              forward
             </motion.p>
           </motion.div>
         </div>

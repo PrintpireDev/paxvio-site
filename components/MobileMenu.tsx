@@ -19,18 +19,18 @@ export function MobileMenu() {
       {open && (
         <div className="absolute top-full left-0 right-0 bg-deep-space/95 backdrop-blur-md border-b border-white/[0.04] py-6 px-6 flex flex-col gap-4">
           <a
-            href="#about"
+            href="#platform"
+            onClick={() => setOpen(false)}
+            className="text-pearl text-sm tracking-wide hover:text-gold transition-colors py-1"
+          >
+            Platform
+          </a>
+          <a
+            href="#approach"
             onClick={() => setOpen(false)}
             className="text-pearl text-sm tracking-wide hover:text-gold transition-colors py-1"
           >
             About
-          </a>
-          <a
-            href="#divisions"
-            onClick={() => setOpen(false)}
-            className="text-pearl text-sm tracking-wide hover:text-gold transition-colors py-1"
-          >
-            Divisions
           </a>
           <a
             href="/brand"

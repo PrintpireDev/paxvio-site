@@ -68,16 +68,16 @@ export default function RootLayout({
           </a>
           <div className="hidden md:flex items-center gap-8">
             <a
-              href="#about"
+              href="#platform"
+              className="text-silver text-sm tracking-wide hover:text-gold transition-colors duration-300"
+            >
+              Platform
+            </a>
+            <a
+              href="#approach"
               className="text-silver text-sm tracking-wide hover:text-gold transition-colors duration-300"
             >
               About
-            </a>
-            <a
-              href="#divisions"
-              className="text-silver text-sm tracking-wide hover:text-gold transition-colors duration-300"
-            >
-              Divisions
             </a>
             <a
               href="/brand"
@@ -136,8 +136,8 @@ export default function RootLayout({
                   </h4>
                   <ul className="space-y-3">
                     <li>
-                      <a href="#about" className="text-silver text-sm hover:text-gold transition-colors">
-                        About
+                      <a href="#platform" className="text-silver text-sm hover:text-gold transition-colors">
+                        Platform
                       </a>
                     </li>
                     <li>
