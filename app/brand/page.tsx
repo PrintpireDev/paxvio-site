@@ -591,7 +591,7 @@ export default function BrandPage() {
             <h3 className="text-pearl text-sm font-semibold mb-5 tracking-wide">
               Hat Program
             </h3>
-            <GridContainer cols={4} gap={0} border>
+            <GridContainer cols={4} mobileCols={2} gap={0} border>
               <GridRow>
                 {[
                   { name: "Structured Navy", type: "Richardson 112", mesh: true },

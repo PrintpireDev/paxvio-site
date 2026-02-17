@@ -18,6 +18,7 @@ const useGridContext = () => {
 // Provider que envuelve el container
 export const GridContainer = ({
 	cols = 12,
+	mobileCols,
 	rows = 1,
 	gap = 0,
 	border = true,
@@ -25,6 +26,8 @@ export const GridContainer = ({
 	children,
 	...props
 }) => {
+	const gridId = React.useId().replace(/:/g, "");
+	const responsive = mobileCols !== undefined && mobileCols !== cols;
 	const contextValue = {
 		cols,
 		rows,
@@ -35,8 +38,11 @@ export const GridContainer = ({
 
 	return (
 		<GridContext.Provider value={contextValue}>
+			{responsive && (
+				<style>{`@media(max-width:767px){.g-${gridId}{grid-template-columns:repeat(${mobileCols},minmax(0,1fr))!important}.g-${gridId}>div{grid-column:span ${mobileCols}/span ${mobileCols}!important;grid-template-columns:repeat(${mobileCols},minmax(0,1fr))!important}.g-${gridId}>div>div{grid-column:span 1/span ${mobileCols}!important}}`}</style>
+			)}
 			<div
-				className={cn(`w-full grid`, className)}
+				className={cn(`w-full grid`, responsive && `g-${gridId}`, className)}
 				style={{
 					gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
 					gridTemplateRows: `repeat(${rows}, minmax(0, 1fr))`,

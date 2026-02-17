@@ -321,7 +321,7 @@ export default function Home() {
             viewport={{ once: true, margin: "-60px" }}
             variants={staggerContainer}
           >
-            <GridContainer cols={4} gap={0} border>
+            <GridContainer cols={4} mobileCols={2} gap={0} border>
               <GridRow>
                 {stats.map((stat, i) => (
                   <GridItem
@@ -482,7 +482,7 @@ export default function Home() {
             viewport={{ once: true, margin: "-60px" }}
             variants={staggerContainer}
           >
-            <GridContainer cols={2} gap={0} border>
+            <GridContainer cols={2} mobileCols={1} gap={0} border>
               <GridRow>
                 {[
                   { text: "Design tools that run everywhere", icon: "01" },

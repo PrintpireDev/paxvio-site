@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { MobileMenu } from "@/components/MobileMenu";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -91,6 +92,7 @@ export default function RootLayout({
               Get in Touch
             </a>
           </div>
+          <MobileMenu />
         </nav>
 
         {children}
