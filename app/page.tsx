@@ -104,6 +104,8 @@ const divisions = [
     description:
       "Direct-to-consumer and B2B custom product businesses. Our proving ground — where every tool gets battle-tested before it becomes a product.",
     capabilities: ["Storefronts", "Order management", "Fulfillment", "Shipping"],
+    badge: { text: "Commerce", color: "emerald" as const },
+    metric: "2 live storefronts",
   },
   {
     icon: Code2,
@@ -111,6 +113,8 @@ const divisions = [
     description:
       "Embeddable design tools and APIs for any custom product workflow. The infrastructure layer that powers businesses at any scale.",
     capabilities: ["Design Studio", "Print API", "Merchant Tools", "White-label"],
+    badge: { text: "Software", color: "sky" as const },
+    metric: "50+ API endpoints",
   },
   {
     icon: Cpu,
@@ -123,6 +127,8 @@ const divisions = [
       "Smart routing",
       "Image enhancement",
     ],
+    badge: { text: "AI", color: "gold" as const },
+    metric: "Background removal in <2s",
   },
   {
     icon: FlaskConical,
@@ -130,8 +136,17 @@ const divisions = [
     description:
       "Research into next-generation manufacturing and design technology. Where we explore what comes after what exists.",
     capabilities: ["New substrates", "Process R&D", "Emerging tech"],
+    badge: { text: "Labs", color: "amber" as const },
+    metric: "Active R&D pipeline",
   },
 ];
+
+const badgeColors = {
+  emerald: "text-emerald-400 bg-emerald-400/10 border-emerald-400/20",
+  sky: "text-sky-400 bg-sky-400/10 border-sky-400/20",
+  gold: "text-gold bg-gold/10 border-gold/20",
+  amber: "text-amber-400 bg-amber-400/10 border-amber-400/20",
+};
 
 const pillars = [
   { number: "01", text: "Design tools that deploy everywhere" },
@@ -234,9 +249,9 @@ export default function Home() {
           people who run the businesses they serve.
         </motion.p>
 
-        {/* CTA */}
+        {/* CTAs */}
         <motion.div
-          className="mt-12"
+          className="mt-12 flex flex-col sm:flex-row items-center gap-4"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.5, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -247,6 +262,12 @@ export default function Home() {
           >
             Explore the Platform
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+          </a>
+          <a
+            href="#contact"
+            className="group px-10 py-4 text-sm font-semibold text-pearl/80 border border-white/[0.08] rounded-lg transition-all duration-300 hover:border-gold/30 hover:text-pearl hover:bg-white/[0.02] active:scale-[0.98] inline-flex items-center gap-2.5"
+          >
+            Get in Touch
           </a>
         </motion.div>
 
@@ -265,7 +286,36 @@ export default function Home() {
         </motion.div>
       </section>
 
-      <div className="gold-line mx-auto max-w-5xl" />
+      {/* ==================== METRICS BAR ==================== */}
+      <motion.section
+        className="py-12 md:py-16 px-6 md:px-12 border-y border-white/[0.04]"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={staggerContainer}
+      >
+        <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4">
+          {[
+            { value: "4", label: "Integrated systems" },
+            { value: "2", label: "Live storefronts" },
+            { value: "<2s", label: "AI processing" },
+            { value: "50+", label: "API endpoints" },
+          ].map((stat) => (
+            <motion.div
+              key={stat.label}
+              variants={fadeInUp}
+              className="text-center"
+            >
+              <p className="text-2xl md:text-3xl font-bold text-gold tracking-tight">
+                {stat.value}
+              </p>
+              <p className="text-silver/60 text-xs tracking-[0.15em] uppercase mt-1.5">
+                {stat.label}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </motion.section>
 
       {/* ==================== THE PROBLEM ==================== */}
       <section className="py-28 md:py-40 px-6 md:px-12">
@@ -384,8 +434,13 @@ export default function Home() {
                     className="h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(201,168,76,0.06)]"
                   >
                     <CardHeader className="pb-0">
-                      <div className="p-2.5 rounded-lg bg-gold/5 border border-gold/10 w-fit">
-                        <Icon className="w-5 h-5 text-gold" />
+                      <div className="flex items-center gap-3">
+                        <div className="p-2.5 rounded-lg bg-gold/5 border border-gold/10 w-fit">
+                          <Icon className="w-5 h-5 text-gold" />
+                        </div>
+                        <span className={`text-[10px] font-semibold tracking-[0.15em] uppercase px-2.5 py-1 rounded-full border ${badgeColors[div.badge.color]}`}>
+                          {div.badge.text}
+                        </span>
                       </div>
                       <CardTitle className="text-xl font-bold text-pearl mt-4">
                         {div.title}
@@ -405,6 +460,9 @@ export default function Home() {
                           </span>
                         ))}
                       </div>
+                      <p className="text-xs text-silver/50 mt-4 pt-3 border-t border-white/[0.04]">
+                        {div.metric}
+                      </p>
                     </CardContent>
                   </Card>
                 </motion.div>
@@ -469,6 +527,45 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+
+      {/* ==================== MID-PAGE CTA ==================== */}
+      <motion.section
+        className="py-16 md:py-20 px-6 md:px-12"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-60px" }}
+        variants={staggerContainer}
+      >
+        <div className="max-w-3xl mx-auto text-center">
+          <motion.div
+            variants={fadeInUp}
+            className="relative rounded-2xl border border-gold/10 bg-gradient-to-b from-gold/[0.03] to-transparent px-8 py-12 md:px-16 md:py-16 overflow-hidden"
+          >
+            <div className="absolute inset-0 pointer-events-none opacity-[0.04]" style={{ background: "radial-gradient(ellipse at center, #C9A84C, transparent 70%)" }} />
+            <p className="text-gold text-xs font-semibold tracking-[0.3em] uppercase mb-4 relative z-10">
+              Ready to start?
+            </p>
+            <h3 className="text-2xl md:text-3xl font-bold text-pearl tracking-tight relative z-10">
+              See how Paxvio can power your business.
+            </h3>
+            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
+              <a
+                href="#contact"
+                className="group px-8 py-3.5 text-sm font-semibold text-deep-space bg-gradient-to-b from-light-gold to-gold rounded-lg transition-all duration-300 hover:shadow-[0_0_40px_rgba(201,168,76,0.3)] hover:scale-[1.02] active:scale-[0.98] inline-flex items-center gap-2.5"
+              >
+                Talk to Us
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+              </a>
+              <a
+                href="#platform"
+                className="text-sm text-silver hover:text-pearl transition-colors duration-300"
+              >
+                Learn more
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      </motion.section>
 
       <div className="gold-line mx-auto max-w-5xl" />
 
@@ -576,18 +673,31 @@ export default function Home() {
             </motion.p>
             <motion.div
               variants={fadeInUp}
-              className="flex flex-wrap items-center justify-center gap-10 md:gap-16"
+              className="flex flex-wrap items-center justify-center gap-8 md:gap-14"
             >
-              {["Next.js", "React", "Vercel", "Square", "Cloudflare"].map(
-                (name) => (
-                  <span
-                    key={name}
-                    className="text-silver/50 text-sm font-semibold tracking-widest uppercase transition-colors duration-300 hover:text-pearl/70"
-                  >
-                    {name}
-                  </span>
-                )
-              )}
+              {/* Next.js */}
+              <svg className="h-5 text-silver/40 hover:text-pearl/70 transition-colors duration-300" viewBox="0 0 394 80" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="Next.js">
+                <path d="M262 0v80h-13V0h13Zm33.3 0L333 42.2 370.6 0h15.7l-46.4 50.3L388 80h-16l-39-42.7L294 80h-15.7l47.3-50.8L281.6 0h13.7ZM0 0h14.6l55 73.2L114.3 0H128L62.2 80H50.5L0 0Z"/>
+              </svg>
+              {/* React */}
+              <svg className="h-6 text-silver/40 hover:text-pearl/70 transition-colors duration-300" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="React">
+                <circle cx="12" cy="12" r="2.05"/>
+                <path fill="none" stroke="currentColor" strokeWidth="1" d="M12 21.5c-3.1 0-5.8-1.2-7.1-3.1C3.6 16.5 3.2 14.3 3.9 12 3.2 9.7 3.6 7.5 4.9 5.6 6.2 3.7 8.9 2.5 12 2.5s5.8 1.2 7.1 3.1c1.3 1.9 1.7 4.1 1 6.4.7 2.3.3 4.5-1 6.4C17.8 20.3 15.1 21.5 12 21.5Z"/>
+                <path fill="none" stroke="currentColor" strokeWidth="1" d="M12 21.5c1.7 0 3.2-4.1 3.2-9.5S13.7 2.5 12 2.5 8.8 6.6 8.8 12s1.5 9.5 3.2 9.5Z"/>
+                <path fill="none" stroke="currentColor" strokeWidth="1" d="M21.5 12c0 1.7-4.1 3.2-9.5 3.2S2.5 13.7 2.5 12 6.6 8.8 12 8.8s9.5 1.5 9.5 3.2Z"/>
+              </svg>
+              {/* Vercel */}
+              <svg className="h-5 text-silver/40 hover:text-pearl/70 transition-colors duration-300" viewBox="0 0 284 65" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="Vercel">
+                <path d="M141.68 16.25c-11.04 0-19 7.2-19 18.05s8.96 18.05 20 18.05c6.67 0 12.55-2.64 16.19-7.09l-7.65-4.42c-2.02 2.21-5.09 3.5-8.54 3.5-4.79 0-8.86-2.5-10.37-6.5h28.02c.22-1.12.35-2.28.35-3.54 0-10.85-7.93-18.05-19-18.05Zm-8.85 14.55c1.52-3.82 5.13-6.55 9.85-6.55 4.14 0 7.39 2.73 8.85 6.55h-18.7ZM243.72 16.25c-11.04 0-19 7.2-19 18.05s8.96 18.05 20 18.05c6.67 0 12.55-2.64 16.19-7.09l-7.65-4.42c-2.02 2.21-5.09 3.5-8.54 3.5-4.79 0-8.86-2.5-10.37-6.5h28.02c.22-1.12.35-2.28.35-3.54 0-10.85-7.93-18.05-19-18.05Zm-8.85 14.55c1.52-3.82 5.13-6.55 9.85-6.55 4.14 0 7.39 2.73 8.85 6.55h-18.7ZM174.3 16.25c-4.46 0-8.07 1.93-10.15 5.09V0h-9.58v51.65h9.58v-3.9c2.08 3.09 5.69 5 10.15 5 9.58 0 17.16-8.07 17.16-18.25s-7.58-18.25-17.16-18.25Zm-1.47 28.12c-5.55 0-9.58-4.32-9.58-9.87s4.03-9.88 9.58-9.88c5.56 0 9.59 4.33 9.59 9.88s-4.03 9.87-9.59 9.87ZM202.3 0v51.65h9.58V0h-9.58ZM31.75 0 63.5 55.52H0L31.75 0Z"/>
+              </svg>
+              {/* Square */}
+              <svg className="h-5 text-silver/40 hover:text-pearl/70 transition-colors duration-300" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="Square">
+                <path d="M3.5 1A2.5 2.5 0 0 0 1 3.5v17A2.5 2.5 0 0 0 3.5 23h17a2.5 2.5 0 0 0 2.5-2.5v-17A2.5 2.5 0 0 0 20.5 1h-17Zm2.3 5.3h12.4c.7 0 1.3.6 1.3 1.3v8.8c0 .7-.6 1.3-1.3 1.3H5.8c-.7 0-1.3-.6-1.3-1.3V7.6c0-.7.6-1.3 1.3-1.3Zm3.2 3a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z"/>
+              </svg>
+              {/* Cloudflare */}
+              <svg className="h-5 text-silver/40 hover:text-pearl/70 transition-colors duration-300" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="Cloudflare">
+                <path d="M16.51 17.15l-.66-2.25a1.02 1.02 0 0 0-.98-.72H5.4a.34.34 0 0 1-.32-.22.33.33 0 0 1 .04-.38c.11-.15.3-.24.48-.24h9.68c1.18 0 2.24-.78 2.58-1.9l.47-1.63c.04-.12.06-.25.06-.38 0-.14-.02-.28-.07-.41A5.38 5.38 0 0 0 13.1 6a5.36 5.36 0 0 0-5 3.41 3.56 3.56 0 0 0-2.46-.98 3.6 3.6 0 0 0-3.5 2.86A3.38 3.38 0 0 0 0 14.64c0 .14.01.27.02.4 0 .07.05.12.12.12h15.95a.98.98 0 0 0 .93-.67l.04-.14c.05-.2.05-.4-.02-.6l-.53-1.6ZM19.35 9.88a.12.12 0 0 0-.12-.02c-.04.02-.07.05-.08.1l-.35 1.23a3.05 3.05 0 0 1-2.58 1.9H15.7l.65 2.25c.07.2.07.4.02.6l-.04.14a.98.98 0 0 1-.93.67h-.16a3.36 3.36 0 0 0 3.1 2.1 3.35 3.35 0 0 0 3.35-3.35c0-.14 0-.28-.03-.42a2.73 2.73 0 0 0 2.34-2.7 2.72 2.72 0 0 0-2.3-2.69 4.84 4.84 0 0 0-2.35-.81Z"/>
+              </svg>
             </motion.div>
           </motion.div>
         </div>
